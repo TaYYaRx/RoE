@@ -15,5 +15,5 @@ void setupLocator() {
   print('locator oluşturuldu ');
 }
 
-//GetStorage box = getIt<DatabaseHelper>();
+//GetStorage box = getIt<GetStorage>();
 //RepositoryClass repo = getIt<RepositoryClass>();

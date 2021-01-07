@@ -23,20 +23,26 @@ class _SettingsPageOfGatheringState extends State<SettingsPageOfGathering> {
     ConstantOfGathering.equipment //Index:4
   ];
   List<String> stepperTitles = [
-    'Expedition Force',
+    /* 'Expedition Force',
     'Arm Expert - I',
     'Incentive Gathering',
     'Arm Expert - II',
     'Equipments - I',
-    'Equipments - II '
+    'Equipments - II '*/
+    'Keşif Ekibi',
+    'Askeri Uzman - I',
+    'Ödüllendirme-Topla',
+    'Askeri Uzman - II',
+    'Kolye',
+    'Aksesuar',
   ];
   List<String> stepperSubtitle = [
-    'Expedition Force Araştırması\'nı Giriniz',
-    'Arm Expert I Araştırması\'nı Giriniz',
-    'Incentive Gathering Araştırması\'nı Giriniz',
-    'Arm Expert - II Araştırması\'nı Giriniz',
-    'Scavenger\'s Amulate',
-    'Scavenger\'s Lantern'
+    'Keşif Ekibi Araştırması\'nı Giriniz',
+    'Askeri Uzman - I Araştırması\'nı Giriniz',
+    'Ödüllendirme-Topla Araştırması\'nı Giriniz',
+    'Askeri Uzman - II Araştırması\'nı Giriniz',
+    'Kolye',
+    'Fener'
   ];
   List<double> values = [
     0,
@@ -45,6 +51,15 @@ class _SettingsPageOfGatheringState extends State<SettingsPageOfGathering> {
     0,
     0,
     0,
+  ];
+
+  List<String> infoImages = [
+    'assets/images/kesifekibi.png',
+    'assets/images/askeriuzman.png',
+    'assets/images/topla.png',
+    'assets/images/askeriuzman.png',
+    'assets/images/kolye.png',
+    'assets/images/fener.png',
   ];
   GetStorage box;
   bool isSettingsDone;
@@ -135,7 +150,25 @@ class _SettingsPageOfGatheringState extends State<SettingsPageOfGathering> {
         subtitle: Text('${stepperSubtitle[index]}'),
         content: Align(
             alignment: Alignment.centerLeft,
-            child: buildDropdownButton(index: index)));
+            child: Row(
+              children: [
+                buildDropdownButton(index: index),
+                IconButton(
+                  icon: Icon(
+                    Icons.info_outline,
+                    size: 18,
+                  ),
+                  onPressed: () {
+                    Get.defaultDialog(backgroundColor: Color.fromRGBO(21, 21, 21, 1),
+                        title: 'info',titleStyle: TextStyle(color: Colors.white),
+                        content: Container(                          
+                          height: 150,
+                          decoration: BoxDecoration(image: DecorationImage(image: AssetImage(infoImages[index]))),
+                        ));
+                  },
+                )
+              ],
+            )));
   }
 
   DropdownButton buildDropdownButton({@required int index}) {

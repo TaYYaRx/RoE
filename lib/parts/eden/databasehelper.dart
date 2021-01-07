@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:son_roe/parts/eden/modeleden.dart';
+import 'package:son_roe/parts/eden/model_eden.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
@@ -31,14 +31,12 @@ class DatabaseHelper {
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(_path).writeAsBytes(bytes, flush: true);
-    } else {
-      print('Already exists');
-    }
+    } else {}
     _database = await openDatabase(_path);
   }
 
   Future getList() async {
-    return await _getDatabase().then((value) {      
+    return await _getDatabase().then((value) {
       return _database.query('roc_buildings_queue');
     });
   }
@@ -48,4 +46,5 @@ class DatabaseHelper {
         'roc_buildings_queue', model.toJson(),
         where: 'id = ?', whereArgs: [model.id]));
   }
+
 }

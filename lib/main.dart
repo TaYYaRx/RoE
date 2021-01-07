@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:son_roe/events/page1/controller/controllertime.dart';
 import 'package:son_roe/locator.dart';
+import 'package:son_roe/parts/eden/controller_eden.dart';
 import 'package:son_roe/parts/eden/eden.dart';
 import 'package:son_roe/parts/t9calculator/utility/services_t9.dart';
 import 'package:son_roe/parts/zoneconflict/controller/controller_zoneconflict.dart';
@@ -57,7 +58,7 @@ void _initControllers() {
 
 void _initValues() async {
   GetStorage box = getIt<GetStorage>();
-  RepositoryClass repo = getIt<RepositoryClass>();
+  
 
   // Dispatching values of Cavalry
   if (box.read('Cavalry') != null) {

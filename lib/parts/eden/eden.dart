@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:son_roe/parts/eden/controller_eden.dart';
 import 'package:son_roe/parts/eden/databasehelper.dart';
-import 'package:son_roe/parts/eden/modeleden.dart';
+import 'package:son_roe/parts/eden/model_eden.dart';
 import 'package:son_roe/parts/zoneconflict/utility/services_zoneconflict.dart';
 
 class MainEDEN extends StatefulWidget {
@@ -10,22 +11,44 @@ class MainEDEN extends StatefulWidget {
 
 class _MainEDENState extends State<MainEDEN>
     with SingleTickerProviderStateMixin {
-  TabController controller;
+  TabController tabController;
   List<String> _tabTitles = ['I', 'II', 'III', 'IV', 'V'];
+
+  //Yazıların rengi
+  List<Color> color = [
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.green
+  ];
+
   ControllerEDEN controllerEDEN;
   DatabaseHelper _helper;
+  GetStorage box;
 
   @override
   void initState() {
     super.initState();
+    box = getIt<GetStorage>();
     _helper = DatabaseHelper();
     controllerEDEN = Get.find<ControllerEDEN>();
-    controller = new TabController(length: _tabTitles.length, vsync: this);
+    tabController = new TabController(length: _tabTitles.length, vsync: this);
+    tabController.index = box.read('EdenTabIndex') ?? 0;
+
+    controllerEDEN.updateList();
+  }
+
+  @override
+  void dispose() {
+    box.write('EdenTabIndex', tabController.index);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade900,
       body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
@@ -34,23 +57,51 @@ class _MainEDENState extends State<MainEDEN>
             floating: false,
             pinned: true,
             primary: true,
-            expandedHeight: MediaQuery.of(context).size.height * 0.35,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.none,
-              background:
-                  Image.asset('assets/images/eden.png', fit: BoxFit.fill),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(
+                  MediaQuery.of(context).size.height * 0.26), // Add this code
+              child: ColoredTabBar(
+                color: Colors.black.withOpacity(0.5),
+                tabBar: TabBar(
+                    controller: tabController,
+                    tabs: _tabTitles.map((e) {
+                      return Tab(
+                        child: Text(e),
+                      );
+                    }).toList()),
+              ),
             ),
+            // expandedHeight: MediaQuery.of(context).size.height * 0.35,
+            flexibleSpace: Stack(fit: StackFit.expand, children: [
+              Container(
+                child: Image.asset(
+                  'assets/images/eden.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Positioned(
+                  bottom: 0,
+                  left: MediaQuery.of(context).size.width * 0.01,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width * 0.98,
+                      color: Colors.black.withOpacity(0.2),
+                      child: Obx(() {
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: List.generate(
+                                4,
+                                (index) => Text(
+                                    'Base - ${index + 1}\n${controllerEDEN.coalitionBaseCampLv[index]}',
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center)));
+                      }),
+                    ),
+                  ))
+            ]),
             title: Text("Roc Building Queue"),
-            bottom: ColoredTabBar(
-              color: Colors.black.withOpacity(0.5),
-              tabBar: TabBar(
-                  controller: controller,
-                  tabs: _tabTitles
-                      .map((e) => Tab(
-                            child: Text(e),
-                          ))
-                      .toList()),
-            ),
           )
         ];
       }, body: Obx(() {
@@ -59,15 +110,14 @@ class _MainEDENState extends State<MainEDEN>
           listAll.add(element);
         });
         List<List<ModelRoc>> speratedList = _seperateToList(listAll);
+
         return TabBarView(
-            controller: controller,
-            children: [
-              buildListView(speratedList[0]),
-              buildListView(speratedList[1]),
-              buildListView(speratedList[2]),
-              buildListView(speratedList[3]),
-              buildListView(speratedList[4], color: Colors.green),
-            ],
+            controller: tabController,
+            children: List<Padding>.generate(
+                    5,
+                    (index) =>
+                        buildListView(speratedList[index], color: color[index]))
+                .toList(),
             physics: NeverScrollableScrollPhysics());
       })),
     );
@@ -83,41 +133,121 @@ class _MainEDENState extends State<MainEDEN>
           itemCount: speratedList.length,
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
-              key: ObjectKey([speratedList[index].id]),
-              child: Card(
-                  elevation: 3,
-                  child: Container(
-                    height: 70,
-                    child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text('Sıra : ${speratedList[index].id}',
-                              style: TextStyle(color: color)),
-                          Text('(Lv : ${speratedList[index].levels})',
-                              style: TextStyle(color: color)),
-                        ],
-                      ),
-                      title: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            '${speratedList[index].name}',
-                            style: TextStyle(fontSize: 20, color: color),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Material Cost: ',
-                                  style: TextStyle(fontSize: 14, color: color)),
-                              Text('${speratedList[index].bcmaterials}',
-                                  style: TextStyle(fontSize: 18, color: color)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
+              key: ObjectKey(speratedList[index]),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Card(
+                    elevation: 3,
+                    color: Color(0xFF333333).withOpacity(0.3),
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Sıra No',
+                                    style: TextStyle(shadows: [
+                                      Shadow(
+                                          blurRadius: 10,
+                                          color: Colors.white30,
+                                          offset: Offset(5, 5)),
+                                    ], fontSize: 15, color: color),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${speratedList[index].id}',
+                                      style: TextStyle(shadows: [
+                                        Shadow(
+                                            blurRadius: 10,
+                                            color: Colors.white24,
+                                            offset: Offset(5, 5)),
+                                      ], fontSize: 18, color: color),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.15,
+                            ),
+                            VerticalDivider(
+                                color: Colors.white, endIndent: 10, indent: 10),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    '${speratedList[index].name}',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: color,
+                                        shadows: [
+                                          Shadow(
+                                              blurRadius: 10,
+                                              color: Colors.white24,
+                                              offset: Offset(5, 5)),
+                                        ]),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Material Cost: ',
+                                          style: TextStyle(
+                                              shadows: [
+                                                Shadow(
+                                                    blurRadius: 10,
+                                                    color: Colors.white24,
+                                                    offset: Offset(5, 5))
+                                              ],
+                                              fontSize: 13,
+                                              color: color.withOpacity(0.6))),
+                                      Text('${speratedList[index].bcmaterials}',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              shadows: [
+                                                Shadow(
+                                                    blurRadius: 10,
+                                                    color: Colors.white24,
+                                                    offset: Offset(5, 5)),
+                                              ],
+                                              color: color.withOpacity(0.6))),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.096,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(
+                                                'assets/images/cbc.png'))),
+                                  ),
+                                  Text(
+                                    'Level\n${speratedList[index].levels}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white.withOpacity(0.7)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ))),
+              ),
               onDismissed: (direction) {
                 ModelRoc newModel = ModelRoc(
                     id: speratedList[index].id,
@@ -128,6 +258,7 @@ class _MainEDENState extends State<MainEDEN>
                     isDone: (speratedList[index].isDone == 0) ? 1 : 0);
 
                 _helper.updateModel(newModel);
+
                 controllerEDEN.updateList();
               },
             );
@@ -135,25 +266,6 @@ class _MainEDENState extends State<MainEDEN>
         ),
       ),
     );
-  }
-
-  Future<List<ModelRoc>> fetchEdenDB() async {
-    print('EDEN LİST CAGIRILDI');
-    List<ModelRoc> _listRoc = List();
-    await getIt<DatabaseHelper>().getList().then((value) {
-      (value as List).forEach((element) {
-        _listRoc.add(ModelRoc(
-          id: element['id'],
-          sector: element['sector'],
-          name: element['name'],
-          bcmaterials: element['bcmaterials'],
-          levels: element['levels'],
-          isDone: element['isDone'],
-        ));
-      });
-    });
-    print(_listRoc.length);
-    return _listRoc;
   }
 
   List<List<ModelRoc>> _seperateToList(List<ModelRoc> list) {
@@ -175,47 +287,8 @@ class _MainEDENState extends State<MainEDEN>
         list5.add(model);
       }
     });
+
     return [list1, list2, list3, list4, list5];
-  }
-}
-
-class ControllerEDEN extends GetxController {
-  var list = [].obs;
-  updateList() async {
-    try {
-      await fetchEdenDB().then((value) {
-        value != null ? list.assign(value) : null;
-      });
-    } catch (e) {}
-  }
-
-  @override
-  void onInit() async {
-    try {
-      await fetchEdenDB().then((value) {
-        list.assign(value); // [[80 tane item]]
-      });
-    } catch (e) {}
-
-    super.onInit();
-  }
-
-  Future<List<ModelRoc>> fetchEdenDB() async {
-    print('EDEN LİST CAGIRILDI');
-    List<ModelRoc> _listRoc = List();
-    await getIt<DatabaseHelper>().getList().then((value) {
-      (value as List).forEach((element) {
-        _listRoc.add(ModelRoc(
-          id: element['id'],
-          sector: element['sector'],
-          name: element['name'],
-          bcmaterials: element['bcmaterials'],
-          levels: element['levels'],
-          isDone: element['isDone'],
-        ));
-      });
-    });
-    return _listRoc;
   }
 }
 

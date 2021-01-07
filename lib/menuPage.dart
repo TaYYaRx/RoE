@@ -1,6 +1,5 @@
 import 'package:son_roe/events/utility/services_event.dart';
 import 'package:son_roe/parts/eden/eden.dart';
-import 'package:son_roe/parts/eden/modeleden.dart';
 import 'package:son_roe/parts/gathering/gather_settings_page.dart';
 import 'package:son_roe/parts/gathering/gathering_page.dart';
 import 'package:time_machine/time_machine.dart';
