@@ -1,7 +1,6 @@
-import 'package:son_roe/parts/t9calculator/utility/services_t9.dart';
-import 'package:son_roe/parts/zoneconflict/utility/model_zoneconflict.dart';
-
+import '../../t9calculator/utility/services_t9.dart';
 import '../utility/constants_zoneconflict.dart';
+import '../utility/model_zoneconflict.dart';
 
 class ControllerZoneConflict extends GetxController {
   final model = ZoneConflictModel(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:son_roe/events/utility/services_event.dart';
-import 'package:son_roe/locator.dart';
-import 'package:son_roe/parts/gathering/constants_gathering.dart';
-import 'package:son_roe/parts/gathering/gathering_page.dart';
+
+import '../../locator.dart';
+import 'constants_gathering.dart';
+import 'gathering_page.dart';
 
 class SettingsPageOfGathering extends StatefulWidget {
   @override

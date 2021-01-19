@@ -1,4 +1,4 @@
-import 'package:son_roe/parts/zoneconflict/utility/services_zoneconflict.dart';
+import '../utility/services_zoneconflict.dart';
 
 class BodyZoneConflict extends StatelessWidget {
   const BodyZoneConflict({

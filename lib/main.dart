@@ -1,17 +1,17 @@
-import 'package:flutter/services.dart';
-import 'package:son_roe/events/page1/controller/controllertime.dart';
-import 'package:son_roe/locator.dart';
-import 'package:son_roe/parts/eden/controller_eden.dart';
-import 'package:son_roe/parts/eden/eden.dart';
-import 'package:son_roe/parts/t9calculator/utility/services_t9.dart';
-import 'package:son_roe/parts/zoneconflict/controller/controller_zoneconflict.dart';
-import 'package:son_roe/parts/zoneconflict/utility/model_zoneconflict.dart';
-import 'package:time_machine/time_machine.dart';
+import 'locator.dart';
+import 'parts/eden/controller_eden.dart';
+import 'parts/events/page1/controller/controllerNextEvent.dart';
+import 'parts/events/page1/controller/controllerdropdownmenus.dart';
+import 'parts/events/page1/controller/controllertime.dart';
+import 'parts/t9calculator/utility/services_t9.dart';
+import 'parts/zoneconflict/controller/controller_zoneconflict.dart';
+import 'parts/zoneconflict/utility/model_zoneconflict.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator(); // Initialize SingletonTypeOfInstance
   await GetStorage.init(); // Initialize GetStorage
-  await _startTimeZoneMachine();
+
   initController();
 
   runApp(MyApp());
@@ -37,12 +37,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future _startTimeZoneMachine() async {
-  await TimeMachine.initialize({
-    'rootBundle': rootBundle,
-  });
-}
-
 /// stat the contollers
 void _initControllers() {
   Get.put(ControllerT9Cavalry());
@@ -50,15 +44,11 @@ void _initControllers() {
   Get.put(ControllerT9Footman());
   Get.put(ControllerZoneConflict());
   Get.put(ControllerServerTime());
-  Get.put(ControllerDropdownMenu());
   Get.put(ControllerEDEN());
-
-
 }
 
 void _initValues() async {
-  GetStorage box = getIt<GetStorage>();
-  
+  var box = getIt<GetStorage>();
 
   // Dispatching values of Cavalry
   if (box.read('Cavalry') != null) {
@@ -99,16 +89,18 @@ void _initValues() async {
     model.percentage = box.read('Zone Conflict')[3];
   }
 
-  var controller = Get.find<ControllerDropdownMenu>();
+  var controllerDD = Get.find<ControllerDropdownMenu>();
   if (box.read('castleLevel') != null) {
-    controller.castleLevelIndex.value = box.read('castleLevel');
-    controller.castleLevelTitle.value =
-        controller.getCastleLevelTitle(box.read('castleLevel'));
+    controllerDD.castleLevelIndex.value = box.read('castleLevel');
+    controllerDD.castleLevelTitle.value =
+        controllerDD.getCastleLevelTitle(box.read('castleLevel'));
+
+    // print('${controller.castleLevelIndex.value}\n${controller.castleLevelTitle.value}');
   }
 
   if (box.read('sundayEvent') != null) {
-    controller.sundayEventIndex.value = box.read('sundayEvent');
-    controller.sundayEventTitle.value =
-        controller.getSundayEventTitle(box.read('sundayEvent'));
-  }  
+    controllerDD.sundayEventIndex.value = box.read('sundayEvent');
+    controllerDD.sundayEventTitle.value =
+        controllerDD.getSundayEventTitle(box.read('sundayEvent'));
+  }
 }

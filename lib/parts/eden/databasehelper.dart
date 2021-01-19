@@ -1,9 +1,4 @@
-import 'dart:io';
-import 'package:son_roe/parts/eden/model_eden.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
+import 'services_eden.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _helper = DatabaseHelper._internal();
@@ -28,8 +23,7 @@ class DatabaseHelper {
         await Directory(dirname(_path)).create(recursive: true);
       } catch (e) {}
       ByteData data = await rootBundle.load(join('assets', 'roc.db'));
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(_path).writeAsBytes(bytes, flush: true);
     } else {}
     _database = await openDatabase(_path);
@@ -46,5 +40,4 @@ class DatabaseHelper {
         'roc_buildings_queue', model.toJson(),
         where: 'id = ?', whereArgs: [model.id]));
   }
-
 }

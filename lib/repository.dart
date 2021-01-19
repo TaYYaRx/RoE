@@ -1,25 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:son_roe/events/utility/services_event.dart';
-import 'package:time_machine/time_machine.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/timezone.dart';
+
+import 'parts/events/utility/models/model_events.dart';
 
 class RepositoryClass {
-
-  /// Returns Server Time
-  Future<ZonedDateTime> fetchServerTime() async {
-    try {
-      var tzdb = await DateTimeZoneProviders.tzdb;
-      var noronha = await tzdb['America/Noronha'];
-      var now = Instant.now();
-
-      return now.inZone(noronha);
-    } catch (e) {
-      print('HATA :> ' + e);
-      return null;
-    }
+  RepositoryClass() {
+    tz.initializeTimeZones();
   }
 
+  /// Zamanı iste
+  TZDateTime fetchServerTime() {
+    return tz.TZDateTime.now(tz.getLocation('America/Noronha'));
+  }
+
+  // ignore: missing_return
+
+  /// Listeleri Getir
   Future<ModelEvents> fetchJsonData() async {
     String jsonData = await rootBundle.loadString('assets/events.json');
 
@@ -28,6 +28,4 @@ class RepositoryClass {
     print('ControllerServerTime: Json oluşturuldu');
     return eventModel;
   }
-
-
 }

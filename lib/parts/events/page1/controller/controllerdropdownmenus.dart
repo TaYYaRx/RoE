@@ -1,5 +1,4 @@
-import 'package:son_roe/events/utility/constants_event.dart';
-import 'package:son_roe/events/utility/services_event.dart';
+import '../../utility/services_event.dart';
 
 class ControllerDropdownMenu extends GetxController {
   var castleLevelTitle = '6-8'.obs;
@@ -18,12 +17,14 @@ class ControllerDropdownMenu extends GetxController {
     sundayEventIndex.value = value;
   }
 
+// INDEX'e göre Kale seviyesini gösteren title'i bul
   String getCastleLevelTitle(int value) {
     return getIt<ConstantOfEvents>().castleLv.keys.firstWhere(
         (element) => getIt<ConstantOfEvents>().castleLv[element] == value,
         orElse: () => null);
   }
 
+// INDEX'e göre seçilen araştırmayı gösteren title'i bul
   String getSundayEventTitle(int value) {
     return getIt<ConstantOfEvents>().eventTitles.keys.firstWhere(
         (element) => getIt<ConstantOfEvents>().eventTitles[element] == value,

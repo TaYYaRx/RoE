@@ -235,13 +235,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
-  resource:
-    dependency: transitive
-    description:
-      name: resource
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.7"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -310,15 +303,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
-  time_machine:
+  timezone:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "7753e0d"
-      resolved-ref: "7753e0d258880ad8070fc71a10d04a5056428837"
-      url: "https://github.com/Dana-Ferguson/time_machine"
-    source: git
-    version: "0.9.15"
+      name: timezone
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.1"
   typed_data:
     dependency: transitive
     description:

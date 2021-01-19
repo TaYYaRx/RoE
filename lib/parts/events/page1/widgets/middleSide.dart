@@ -1,5 +1,5 @@
-import 'package:son_roe/events/utility/constants_event.dart';
-import 'package:son_roe/events/utility/services_event.dart';
+import '../../utility/services_event.dart';
+
 
 class MiddleSide extends StatelessWidget {
   const MiddleSide({Key key, @required this.controller}) : super(key: key);

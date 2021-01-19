@@ -1,27 +1,26 @@
-import 'package:son_roe/events/utility/services_event.dart';
-
+import '../utility/services_event.dart';
 import 'widgets/bottomSide.dart';
 import 'widgets/middleSide.dart';
 import 'widgets/topSide.dart';
 
 class EventMainPage extends StatelessWidget {
-  const EventMainPage(
-      {Key key,
-      @required Timer timer,
-      @required ModelEvents eventModel,
-      @required List contentList})
-      : _timer = timer,
-        _eventModel = eventModel,
+  const EventMainPage({
+    Key key,
+    @required Timer timer,
+  })  : _timer = timer,
         super(key: key);
   final _timer;
-  final _eventModel;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         print('timer closed');
-        _timer.cancel();
+        try {
+          _timer.cancel();
+        } catch (e) {
+          print(e);
+        }
         return true;
       },
       child: Scaffold(
@@ -31,15 +30,8 @@ class EventMainPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.info),
               onPressed: () {
-                var _controller = Get.find<ControllerServerTime>();
-                Get.defaultDialog(
-                    title: 'Info',
-                    content: Obx(() {
-                      return Text(
-                        'Day : ${_controller.model.value.day}\nNext Hour : ${_controller.model.value.nextEventHr}',
-                        style: TextStyle(fontSize: 14),
-                      );
-                    }));
+                var controller = Get.find<ControllerServerTime>();
+                _getInfoDialog(controller);
               },
             )
           ],
@@ -48,9 +40,7 @@ class EventMainPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            TopSide(
-              model: _eventModel,
-            ),
+            TopSide(),
             MiddleSide(controller: Get.find<ControllerDropdownMenu>()),
             BottomSide(),
           ],
@@ -58,4 +48,15 @@ class EventMainPage extends StatelessWidget {
       ),
     );
   }
+
+  _getInfoDialog(ControllerServerTime controller) => Get.defaultDialog(
+      title: 'INFO',
+      content: Obx(() {
+        var day = controller.modelTimes.value.day;
+        var hour = controller.modelTimes.value.hr;
+        return Text(
+          'Day : $day\nNext Hour : $hour',
+          style: TextStyle(fontSize: 14),
+        );
+      }));
 }

@@ -1,7 +1,4 @@
-import 'package:get/get.dart';
-import 'package:son_roe/locator.dart';
-import 'package:son_roe/parts/eden/databasehelper.dart';
-import 'package:son_roe/parts/eden/model_eden.dart';
+import 'services_eden.dart';
 
 class ControllerEDEN extends GetxController {
   var list = [].obs;
@@ -10,7 +7,7 @@ class ControllerEDEN extends GetxController {
   updateList() async {
     try {
       await fetchEdenDB().then((value) {
-        value != null ? list.assign(value) : null;
+        if (value != null) list.assign(value);
 
         coalitionBaseCampLv[0] = _checkCoalitionBaseCampLevel(
                 liste: value, coalitionTitle: 'Coalition Base Camp I') -
@@ -30,14 +27,11 @@ class ControllerEDEN extends GetxController {
     }
   }
 
-  int _checkCoalitionBaseCampLevel(
-      {List<ModelRoc> liste, String coalitionTitle}) {
+  int _checkCoalitionBaseCampLevel({List<ModelRoc> liste, String coalitionTitle}) {
     ModelRoc result = liste.firstWhere((model) {
       if (model.name == coalitionTitle) {}
       if ((model.name == coalitionTitle && model.isDone == 0) ||
-          (model.levels == '20' &&
-              model.isDone == 1 &&
-              model.name == coalitionTitle)) {
+          (model.levels == '20' && model.isDone == 1 && model.name == coalitionTitle)) {
         return true;
       } else {
         return false;

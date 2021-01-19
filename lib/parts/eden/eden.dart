@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:son_roe/parts/eden/controller_eden.dart';
-import 'package:son_roe/parts/eden/databasehelper.dart';
-import 'package:son_roe/parts/eden/model_eden.dart';
-import 'package:son_roe/parts/zoneconflict/utility/services_zoneconflict.dart';
+import 'services_eden.dart';
 
 class MainEDEN extends StatefulWidget {
   @override
@@ -116,14 +112,14 @@ class _MainEDENState extends State<MainEDEN>
             children: List<Padding>.generate(
                     5,
                     (index) =>
-                        buildListView(speratedList[index], color: color[index]))
+                        buildListView(speratedList[index],context, color: color[index]))
                 .toList(),
             physics: NeverScrollableScrollPhysics());
       })),
     );
   }
 
-  buildListView(List<ModelRoc> speratedList, {Color color}) {
+  buildListView(List<ModelRoc> speratedList,context, {Color color}) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: MediaQuery.removePadding(

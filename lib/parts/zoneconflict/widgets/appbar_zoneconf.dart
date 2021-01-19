@@ -1,9 +1,11 @@
-import 'package:son_roe/parts/zoneconflict/utility/services_zoneconflict.dart';
+import '../utility/services_zoneconflict.dart';
+
 class AppBarZoneConflict extends StatelessWidget {
   const AppBarZoneConflict({
     Key key,
     @required ControllerZoneConflict controller,
-  }) : _controller = controller, super(key: key);
+  })  : _controller = controller,
+        super(key: key);
 
   final ControllerZoneConflict _controller;
 
@@ -24,8 +26,7 @@ class AppBarZoneConflict extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image:
-                            AssetImage('assets/images/zoneconf2.jpg'))),
+                        image: AssetImage('assets/images/zoneconf2.jpg'))),
               ),
 // Status PART
               Positioned(
@@ -37,8 +38,7 @@ class AppBarZoneConflict extends StatelessWidget {
                   child: Column(children: [
                     Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height *
-                                0.026),
+                            top: MediaQuery.of(context).size.height * 0.026),
                         child: Obx(() => CircularPercentIndicator(
 // Circular Percent Indicator
                               animateFromLastPercent: true,
@@ -46,8 +46,7 @@ class AppBarZoneConflict extends StatelessWidget {
                               backgroundColor: Colors.white,
                               radius: 70,
                               lineWidth: 4,
-                              percent:
-                                  _controller.model.value.percentage,
+                              percent: _controller.model.value.percentage,
 // Percentage Text Indicator
                               center: Text(
                                 '${(_controller.model.value.percentage * 100).toStringAsFixed(0)}  %',
@@ -60,29 +59,24 @@ class AppBarZoneConflict extends StatelessWidget {
                     ),
                     Center(
                       child: Container(
-                        height:
-                            MediaQuery.of(context).size.height * 0.032,
+                        height: MediaQuery.of(context).size.height * 0.032,
                         color: Colors.black87.withOpacity(0.45),
                         width: MediaQuery.of(context).size.width * 0.25,
                         child: Center(
                           child: Text(
                             'Left Cougrage',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 12),
+                            style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
                       ),
                     ),
                     Container(
-                      height:
-                          MediaQuery.of(context).size.height * 0.032,
+                      height: MediaQuery.of(context).size.height * 0.032,
                       color: Colors.black87.withOpacity(0.45),
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: Center(
-                          child: Obx(() => Text(
-                              '${_controller.model.value.totalLeft}',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 12)))
+                          child: Obx(() => Text('${_controller.model.value.totalLeft}',
+                              style: TextStyle(color: Colors.white, fontSize: 12)))
 // Left Medals
 
                           ),

@@ -1,5 +1,4 @@
-
-import 'package:son_roe/parts/t9calculator/utility/services_t9.dart';
+import '../../utility/services_t9.dart';
 
 class T9ResearchPage extends StatelessWidget {
   T9ResearchPage(
@@ -221,33 +220,30 @@ class T9ResearchPage extends StatelessWidget {
   }
 
   _resetLevels() {
-    Get.defaultDialog(
-        title: 'Reset',
-        content: Text('Are you sure ?'),
-        actions: [
-          FlatButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text('No')),
-          RaisedButton(
-            onPressed: () {
-              switch (controller.model.value.type) {
-                case 'Archer':
-                  controller.reset();
-                  break;
-                case 'Footman':
-                  controller.reset();
-                  break;
-                case 'Cavalry':
-                  controller.reset();
-                  break;
-                default:
-              }
-              Get.back();
-            },
-            child: Text('Yes'),
-          ),
-        ]);
+    Get.defaultDialog(title: 'Reset', content: Text('Are you sure ?'), actions: [
+      FlatButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text('No')),
+      RaisedButton(
+        onPressed: () {
+          switch (controller.model.value.type) {
+            case 'Archer':
+              controller.reset();
+              break;
+            case 'Footman':
+              controller.reset();
+              break;
+            case 'Cavalry':
+              controller.reset();
+              break;
+            default:
+          }
+          Get.back();
+        },
+        child: Text('Yes'),
+      ),
+    ]);
   }
 }

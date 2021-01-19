@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:numeral/numeral.dart';
-import 'package:son_roe/events/utility/services_event.dart';
-import 'package:son_roe/parts/gathering/constants_gathering.dart';
-import 'package:son_roe/parts/gathering/gather_settings_page.dart';
+
+import '../../locator.dart';
+import 'constants_gathering.dart';
+import 'gather_settings_page.dart';
 
 class MainGatheringPage extends StatefulWidget {
   @override
@@ -45,7 +48,6 @@ class _MainGatheringPageState extends State<MainGatheringPage>
   String _rssTitle2 = 'Resource';
   double _rssValue2 = 0;
   var _controller2 = TextEditingController();
-  String _textValue2 = '0';
   String _totalRss2 = '0';
 
   //Herbir Legion'un seçtiği Kaynak tipi değerleri
@@ -347,7 +349,6 @@ class _MainGatheringPageState extends State<MainGatheringPage>
                               onPressed: () {
                                 setState(() {
                                   _controller2.clear();
-                                  _textValue2 = '0';
                                   _controller2.text = '0';
                                 });
                               }),
@@ -357,7 +358,6 @@ class _MainGatheringPageState extends State<MainGatheringPage>
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         setState(() {
-                          _textValue2 = value;
                         });
                       },
                     ),

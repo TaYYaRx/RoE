@@ -1,6 +1,4 @@
-import 'package:son_roe/parts/zoneconflict/utility/services_zoneconflict.dart';
-
-
+import 'utility/services_zoneconflict.dart';
 
 // ignore: must_be_immutable
 class ZoneConflictMainPage extends StatelessWidget {

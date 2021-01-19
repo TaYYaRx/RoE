@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
-import 'package:son_roe/events/page1/controller/controllertime.dart';
-import 'package:son_roe/events/utility/services_event.dart';
+import '../../utility/services_event.dart';
 
 class BottomSide extends StatefulWidget {
   @override
@@ -16,12 +14,7 @@ class _BottomSideState extends State<BottomSide> {
     'assets/chestImage/purplechest.png',
     'assets/chestImage/goldchest.png'
   ];
-  final List<String> chestTitle = [
-    'Events',
-    'Blue Chest',
-    'Purple Chest',
-    'Gold Chest'
-  ];
+  final List<String> chestTitle = ['Events', 'Blue Chest', 'Purple Chest', 'Gold Chest'];
   int _initIndex;
   ControllerServerTime controller;
   ControllerDropdownMenu controllerDD;
@@ -60,7 +53,7 @@ class _BottomSideState extends State<BottomSide> {
     controllerDD = Get.find<ControllerDropdownMenu>();
     _styleWhite = TextStyle(color: Colors.white);
     liste = [
-      Container(child: _listViewBuildEvents()),
+      Container(child: _listViewBuildEvents() /*Text('data')*/),
       Container(child: _listViewBuildChestsBlue()),
       Container(child: _listViewBuildChestsPurple()),
       Container(child: _listViewBuildChestsGold())
@@ -68,19 +61,20 @@ class _BottomSideState extends State<BottomSide> {
     _initIndex = 0;
   }
 
+//TODO event listi ayarla
+
   Obx _listViewBuildEvents() {
     return Obx(() => Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller.modelEventContent.value.eventList.length,
+            itemCount: controller.currentEventContents.value.eventList.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                color:
-                    index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
+                color: index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    controller.modelEventContent.value.eventList[index],
+                    controller.currentEventContents.value.eventList[index],
                     style: _styleWhite,
                   ),
                 ),
@@ -94,16 +88,11 @@ class _BottomSideState extends State<BottomSide> {
     return Obx(() => Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller
-                .listOfChest
-                .value
-                .castleLv[controllerDD.castleLevelIndex.value]
-                .bluechesttitle
-                .length,
+            itemCount: controller.modelListOfChest.value
+                .castleLv[controllerDD.castleLevelIndex.value].bluechesttitle.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                color:
-                    index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
+                color: index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -111,7 +100,7 @@ class _BottomSideState extends State<BottomSide> {
                     children: [
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .bluechesttitle[index],
@@ -119,7 +108,7 @@ class _BottomSideState extends State<BottomSide> {
                       ),
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .bluechestvalue[index],
@@ -138,16 +127,11 @@ class _BottomSideState extends State<BottomSide> {
     return Obx(() => Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller
-                .listOfChest
-                .value
-                .castleLv[controllerDD.castleLevelIndex.value]
-                .purplechesttitle
-                .length, 
+            itemCount: controller.modelListOfChest.value
+                .castleLv[controllerDD.castleLevelIndex.value].purplechesttitle.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                color:
-                    index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
+                color: index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -155,7 +139,7 @@ class _BottomSideState extends State<BottomSide> {
                     children: [
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .purplechesttitle[index],
@@ -163,7 +147,7 @@ class _BottomSideState extends State<BottomSide> {
                       ),
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .purplechestvalue[index],
@@ -182,16 +166,11 @@ class _BottomSideState extends State<BottomSide> {
     return Obx(() => Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller
-                .listOfChest
-                .value
-                .castleLv[controllerDD.castleLevelIndex.value]
-                .goldchesttitle
-                .length, 
+            itemCount: controller.modelListOfChest.value
+                .castleLv[controllerDD.castleLevelIndex.value].goldchesttitle.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                color:
-                    index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
+                color: index % 2 == 1 ? Colors.grey.shade800 : Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -199,7 +178,7 @@ class _BottomSideState extends State<BottomSide> {
                     children: [
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .goldchesttitle[index],
@@ -207,7 +186,7 @@ class _BottomSideState extends State<BottomSide> {
                       ),
                       Text(
                         controller
-                            .listOfChest
+                            .modelListOfChest
                             .value
                             .castleLv[controllerDD.castleLevelIndex.value]
                             .goldchestvalue[index],
