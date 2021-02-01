@@ -11,7 +11,6 @@ import 'parts/gathering/gathering_page.dart';
 // ignore: must_be_immutable
 class MenuPage extends StatelessWidget {
   Timer timer;
-//  TZDateTime time;
   bool isTimerOn = true;
   ControllerServerTime _controller = Get.find<ControllerServerTime>();
 
@@ -94,31 +93,3 @@ class MenuPage extends StatelessWidget {
     });
   }
 }
-
-/* 
-  int _sunday(int day) =>//TODO ilgilen
-      (day == 6) ? _controller.sundayEventPicked.value : day;
-
-
-
- int _sunday(int day) =>
-      (day == 6) ? _controller.sundayEventPicked.value : day;
-
-  _initEventPage() async {
-    _currentTime = _zonedDateTime.clockTime; // Assigning hh:mm:ss
-
-    _reverseTime = LocalTime(0, (59 - _currentTime.minuteOfHour),
-        (60 - _currentTime.secondOfMinute)); // Kalan süre
-
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      _currentTime = _currentTime.addSeconds(1);
-      _reverseTime = _reverseTime.subtractSeconds(1);
-      day = _zonedDateTime.dayOfWeek.value - 1;
-
-      _controller.updateTime(
-          // Modelin güncellendiği yer
-          localTime: _currentTime,
-          reverseTime: _reverseTime,
-          day: 6);//TODO DÜZELT
-    });
-  }*/

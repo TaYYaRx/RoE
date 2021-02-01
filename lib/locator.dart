@@ -17,5 +17,5 @@ void setupLocator() {
   print('locator oluşturuldu ');
 }
 
-//GetStorage box = getIt<RepositoryClass>();
+//GetStorage box = getIt<GetStorage>();
 //RepositoryClass repo = getIt<RepositoryClass>();

@@ -73,18 +73,14 @@ class ControllerServerTime extends GetxController {
   }
 
   String reverseTime(TZDateTime time) {
-    var rv = time.subtract(Duration(seconds: 1));
+    var rs = 60 - time.second;
+    var min;
+    var sec;
+    min = 59 - time.minute < 10 ? '0${59 - time.minute}' : '${59 - time.minute}';
+    sec =
+        rs == 60 ? '0' : (rs < 10 ? '0${(rs == 60) ? 0 : rs}' : '${(rs == 60) ? 0 : rs}');
 
-    var rs = 60 - rv.second;
-    return (59 - rv.minute) < 10
-        ? '0${59 - rv.minute}'
-        : '${59 - rv.minute}' +
-            ' : ' +
-            ((rs == 60)
-                ? 0.toString()
-                : rs < 10
-                    ? '0${(rs == 60) ? 0 : rs}'
-                    : '${(rs == 60) ? 0 : rs}');
+    return '$min : $sec ';
   }
 
   int _hourAdjustment(int hr) => hr == 8 || hr == 16
@@ -136,3 +132,4 @@ class ControllerServerTime extends GetxController {
           : day;
     }
   }*/
+

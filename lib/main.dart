@@ -1,6 +1,7 @@
+import 'package:son_roe/parts/eventSchedule/mainEventSchedule.dart';
+
 import 'locator.dart';
 import 'parts/eden/controller_eden.dart';
-import 'parts/events/page1/controller/controllerNextEvent.dart';
 import 'parts/events/page1/controller/controllerdropdownmenus.dart';
 import 'parts/events/page1/controller/controllertime.dart';
 import 'parts/t9calculator/utility/services_t9.dart';
@@ -11,13 +12,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator(); // Initialize SingletonTypeOfInstance
   await GetStorage.init(); // Initialize GetStorage
-
-  initController();
+  initFunctions();
 
   runApp(MyApp());
 }
 
-void initController() {
+void initFunctions() {
   _initControllers();
   _initValues();
 }
@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MenuPage(),
-      // home: TestDosyasi()
+     // home: MenuPage(),
+       home: MainEventSchedule()
     );
   }
 }

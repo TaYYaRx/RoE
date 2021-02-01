@@ -115,8 +115,4 @@ class BottomRightWidget extends StatelessWidget {
       ),
     );
   }
-
-  int _hourLine(int hour) => hour == 24 ? 0 : hour;
-
-
 }

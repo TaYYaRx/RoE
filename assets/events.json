@@ -933,7 +933,7 @@
           ]
         },
         {
-          "eventtitle": "Train Speed Up",
+          "eventtitle": "Training Speed Up",
           "eventContent": [
             "Every 1 min of training speed-up items used 400"
           ],
@@ -1399,7 +1399,7 @@
           ]
         },
         {
-          "eventtitle": "Training Troops / Building",
+          "eventtitle": "Building / Training Troops ",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Train a Lvl 10 Unit 215",
@@ -2336,7 +2336,7 @@
           ]
         },
         {
-          "eventtitle": "Building / Research / Speed up Training",
+          "eventtitle": "Building / Research / Training Speed-Up",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -2804,7 +2804,7 @@
           ]
         },
         {
-          "eventtitle": "Training Troops / Research / Building",
+          "eventtitle": " Building / Research / Training Troops",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -4203,7 +4203,7 @@
           ]
         },
         {
-          "eventtitle": "Building / Research / Speed up Training",
+          "eventtitle": "Building / Research / Training Speed up ",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -6988,7 +6988,7 @@
           ]
         },
         {
-          "eventtitle": "Training Troops / Research / Building",
+          "eventtitle": "Building / Research / Training Troops",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -19731,7 +19731,7 @@
           ]
         },
         {
-          "eventtitle": "Building / Research / Speed up Training",
+          "eventtitle": "Building / Research / Training Speed up",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -20665,7 +20665,7 @@
           ]
         },
         {
-          "eventtitle": "Building / Research / Speed up Training",
+          "eventtitle": "Building / Research / Training Speed up",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",
@@ -21133,7 +21133,7 @@
           ]
         },
         {
-          "eventtitle": "Building / Research / Speed up Training",
+          "eventtitle": "Building / Research / Training Speed up",
           "eventContent": [
             "Increase 1 Building Power 1000",
             "Increase 1 Technology Power 400",

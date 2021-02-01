@@ -8,7 +8,7 @@ class BottomSide extends StatefulWidget {
 class _BottomSideState extends State<BottomSide> {
   List<Widget> liste;
   TextStyle _styleWhite;
-  final List<String> chestPng = [
+  final List<String> chestImage = [
     'assets/chestImage/eventicon.png',
     'assets/chestImage/bluechest.png',
     'assets/chestImage/purplechest.png',
@@ -61,7 +61,6 @@ class _BottomSideState extends State<BottomSide> {
     _initIndex = 0;
   }
 
-//TODO event listi ayarla
 
   Obx _listViewBuildEvents() {
     return Obx(() => Padding(
@@ -207,7 +206,7 @@ class _BottomSideState extends State<BottomSide> {
             icon: Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage(chestPng[index]),
+                image: AssetImage(chestImage[index]),
               )),
             ));
       });
